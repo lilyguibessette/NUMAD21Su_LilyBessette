@@ -2,6 +2,10 @@
     <string name="app_name">NUMAD21Su_LilyBessette</string>
     <string name="pressed_button_text">Pressed: </string>
     <string name="clicky">Clicky</string>
+    <string name="ClickyClicky">Clicky Clicky</string>
     <string name="link_collector">Link Collector</string>
     <string name="about">About</string>
+    <string name="email">bessette.l@northeastern.edu</string>
+    <string name="name">Lily Bessette</string>
+    <string name="Back">Back</string>
 </resources>

@@ -52,7 +52,7 @@
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="10dp"
         android:onClick="onClick"
-        android:text="Clicky Clicky"
+        android:text="@string/ClickyClicky"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
