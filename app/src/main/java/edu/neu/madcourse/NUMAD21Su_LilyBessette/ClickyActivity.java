@@ -1,13 +1,13 @@
 package edu.neu.madcourse.NUMAD21Su_LilyBessette;
 
-        import android.content.Intent;
-        import android.os.Bundle;
-        import android.view.View;
-        import android.widget.Button;
-        import android.widget.TextView;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
-        import androidx.annotation.NonNull;
-        import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class ClickyActivity extends AppCompatActivity {
 
@@ -32,7 +32,14 @@ public class ClickyActivity extends AppCompatActivity {
         D = findViewById(R.id.D);
         E = findViewById(R.id.E);
         F = findViewById(R.id.F);
-        
+
+        if(savedInstanceState!=null){
+            pressedText = savedInstanceState.getString("pressedText");
+        }
+        if( pressedText != null) {
+            setPressedValue(pressedText);
+        }
+
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,4 +87,10 @@ public class ClickyActivity extends AppCompatActivity {
         tv.setText("Pressed: " + val);
     }
 
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("pressedText",pressedText);
+    }
 }
