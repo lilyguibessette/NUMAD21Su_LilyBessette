@@ -3,6 +3,7 @@ package edu.neu.madcourse.NUMAD21Su_LilyBessette;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -30,4 +31,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void onClick(View view)
+    {
+        switch (view.getId()) {
+            case R.id.clickybutton:
+                Intent intent = new Intent(MainActivity.this, ClickyActivity.class);
+                startActivity(intent);
+                break;
+        }
+
+    }
+
 }
