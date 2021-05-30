@@ -17,7 +17,7 @@
         app:layout_constraintHorizontal_bias="0.16"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.42000002" />
+        app:layout_constraintVertical_bias="0.42" />
 
     <Button
         android:id="@+id/B"
@@ -27,9 +27,10 @@
         android:text="@string/B"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/C"
+        app:layout_constraintHorizontal_bias="0.512"
         app:layout_constraintStart_toEndOf="@+id/A"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.42000002" />
+        app:layout_constraintVertical_bias="0.42" />
 
     <Button
         android:id="@+id/C"
@@ -99,7 +100,6 @@
         style="@style/Widget.AppCompat.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="onClickPrevious"
         android:text="@string/previous"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
