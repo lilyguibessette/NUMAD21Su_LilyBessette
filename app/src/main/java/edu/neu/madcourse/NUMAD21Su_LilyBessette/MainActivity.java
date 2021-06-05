@@ -36,9 +36,12 @@ public class MainActivity extends AppCompatActivity {
     {
         switch (view.getId()) {
             case R.id.clickybutton:
-                Intent intent = new Intent(MainActivity.this, ClickyActivity.class);
-                startActivity(intent);
+                Intent intent_clicky = new Intent(MainActivity.this, ClickyActivity.class);
+                startActivity(intent_clicky);
                 break;
+            case R.id.linkcollectorbutton:
+                Intent intent_linkcollect = new Intent(MainActivity.this, LinkCollectorActivity.class);
+                startActivity(intent_linkcollect);
         }
 
     }
