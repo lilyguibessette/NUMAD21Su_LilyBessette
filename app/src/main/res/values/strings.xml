@@ -8,4 +8,10 @@
     <string name="email">bessette.l@northeastern.edu</string>
     <string name="name">Lily Bessette</string>
     <string name="Back">Back</string>
+    <string name="cancel">Cancel</string>
+    <string name="link_add_error">Error - Link not saved</string>
+    <string name="link_add_confirm">Link Added Successfully</string>
+    <string name="add_link">Add Link</string>
+    <string name="link_name">Link Name</string>
+    <string name="link_url">Link URL</string>
 </resources>

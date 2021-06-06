@@ -1,10 +1,12 @@
 package edu.neu.madcourse.NUMAD21Su_LilyBessette;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,17 +17,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class LinkCollectorActivity extends AppCompatActivity {
+public class LinkCollectorActivity extends AppCompatActivity implements LinkCollectorDialogFragment.LinkCollectorDialogListener {
     Button back;
-    private ArrayList<LinkItemCard> linkItemList = new ArrayList<>();
+    private ArrayList<LinkItemCard> linkList = new ArrayList<>();
     private RecyclerView linkRecyclerView;
     private LinkRviewAdapter linkRviewAdapter;
     private RecyclerView.LayoutManager linkRLayoutManger;
-    private FloatingActionButton addButton;
+    private FloatingActionButton addLinkButton;
 
     private static final String KEY_OF_LINK = "KEY_OF_LINK";
     private static final String NUMBER_OF_LINKS = "NUMBER_OF_LINKS";
@@ -48,12 +51,9 @@ public class LinkCollectorActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // use dialog for add link
-                showLinkDialog();
-                int pos = 0;
-                addLink(pos);
+                startLinkCollectorDialog();
             }
         });
-
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
@@ -64,7 +64,7 @@ public class LinkCollectorActivity extends AppCompatActivity {
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                 Toast.makeText(LinkCollectorActivity.this, "Delete link", Toast.LENGTH_SHORT).show();
                 int position = viewHolder.getLayoutPosition();
-                linkItemList.remove(position);
+                linkList.remove(position);
                 linkRviewAdapter.notifyItemRemoved(position);
             }
         });
@@ -72,18 +72,47 @@ public class LinkCollectorActivity extends AppCompatActivity {
         itemTouchHelper.attachToRecyclerView(linkRecyclerView);
     }
 
+        public void startLinkCollectorDialog() {
+            DialogFragment linkDialog = new LinkCollectorDialogFragment();
+            linkDialog.show(getSupportFragmentManager(), "LinkDialogFragment");
+        };
+
+        public void onDialogPositiveClick(DialogFragment linkDialog) {
+            Dialog addLinkDialog = linkDialog.getDialog();
+            String linkName = ((EditText) addLinkDialog.findViewById(R.id.link_name)).getText().toString();
+            String linkURL = ((EditText) addLinkDialog.findViewById(R.id.link_url)).getText().toString();
+
+            if (linkURL != "" | linkURL != null) {
+                linkDialog.dismiss();
+                linkList.add(0, new LinkItemCard(linkName, linkURL));
+                linkRviewAdapter.notifyItemInserted(0);
+                View parentLayout = findViewById(android.R.id.content);
+                Snackbar.make(parentLayout, R.string.link_add_confirm, Snackbar.LENGTH_SHORT)
+                        .setAction("Action", null).show();
+            } else {
+                Toast.makeText(LinkCollectorActivity.this, R.string.link_add_error, Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        @Override
+        public void onDialogNegativeClick(DialogFragment linkDialog) {
+            linkDialog.dismiss();
+            //linkDialog.this.getDialog().cancel();
+        }
+
+
 
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
-        int size = linkItemList == null ? 0 : linkItemList.size();
+        int size = linkList == null ? 0 : linkList.size();
         outState.putInt(NUMBER_OF_LINKS, size);
 
         // Need to generate unique key for each item
         // This is only a possible way to do, please find your own way to generate the key
         for (int i = 0; i < size; i++) {
-            outState.putString(KEY_OF_LINK + i + "0", linkItemList.get(i).getLinkName());
-            outState.putString(KEY_OF_LINK + i + "1", linkItemList.get(i).getLinkURL());
+            outState.putString(KEY_OF_LINK + i + "0", linkList.get(i).getLinkName());
+            outState.putString(KEY_OF_LINK + i + "1", linkList.get(i).getLinkURL());
         }
         super.onSaveInstanceState(outState);
     }
@@ -96,7 +125,7 @@ public class LinkCollectorActivity extends AppCompatActivity {
     private void initialItemData(Bundle savedInstanceState) {
         // Not the first time to open this Activity
         if (savedInstanceState != null && savedInstanceState.containsKey(NUMBER_OF_LINKS)) {
-            if (linkItemList == null || linkItemList.size() == 0) {
+            if (linkList == null || linkList.size() == 0) {
 
                 int size = savedInstanceState.getInt(NUMBER_OF_LINKS);
 
@@ -105,7 +134,7 @@ public class LinkCollectorActivity extends AppCompatActivity {
                     String linkName = savedInstanceState.getString(KEY_OF_LINK + i + "0");
                     String linkURL = savedInstanceState.getString(KEY_OF_LINK + i + "1");
                     LinkItemCard linkItemCard = new LinkItemCard(linkName, linkURL);
-                    linkItemList.add(linkItemCard);
+                    linkList.add(linkItemCard);
                 }
             }
         }
@@ -115,7 +144,7 @@ public class LinkCollectorActivity extends AppCompatActivity {
         linkRLayoutManger = new LinearLayoutManager(this);
         linkRecyclerView = findViewById(R.id.link_collector_recycler_view);
         linkRecyclerView.setHasFixedSize(true);
-        linkRviewAdapter = new LinkRviewAdapter(linkItemList);
+        linkRviewAdapter = new LinkRviewAdapter(linkList);
         LinkItemClickListener linkClickListener = new LinkItemClickListener() {
             @Override
             public void onLinkItemClick(String url) {
@@ -128,13 +157,6 @@ public class LinkCollectorActivity extends AppCompatActivity {
         linkRecyclerView.setLayoutManager(linkRLayoutManger);
     }
 
-
-    // need to change this
-    private void addLink(int position) {
-        linkItemList.add(position, new LinkItemCard("Add Link Name", "Add Link URL"));
-        Toast.makeText(LinkCollectorActivity.this, "Add a new link", Toast.LENGTH_SHORT).show();
-        linkRviewAdapter.notifyItemInserted(position);
-    }
 
 }
 

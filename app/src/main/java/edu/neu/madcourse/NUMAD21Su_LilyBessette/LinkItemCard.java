@@ -7,7 +7,7 @@ public class LinkItemCard {
     private final String linkName;
     private final String linkURL;
 
-    //Constructor
+    //Constructor for each link item
     public LinkItemCard(String linkName, String linkURL) {
         this.linkName = linkName;
         this.linkURL = linkURL;
