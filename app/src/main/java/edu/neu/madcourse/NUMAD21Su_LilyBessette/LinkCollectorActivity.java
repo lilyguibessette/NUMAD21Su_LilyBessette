@@ -19,12 +19,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.net.URL;
 import java.util.ArrayList;
-import java.util.Random;
+
 
 public class LinkCollectorActivity extends AppCompatActivity implements LinkCollectorDialogFragment.LinkCollectorDialogListener {
     Button back;
-    private ArrayList<LinkItemCard> linkList = new ArrayList<>();
+    private final ArrayList<LinkItemCard> linkList = new ArrayList<>();
     private RecyclerView linkRecyclerView;
     private LinkRviewAdapter linkRviewAdapter;
     private RecyclerView.LayoutManager linkRLayoutManger;
@@ -75,14 +76,15 @@ public class LinkCollectorActivity extends AppCompatActivity implements LinkColl
         public void startLinkCollectorDialog() {
             DialogFragment linkDialog = new LinkCollectorDialogFragment();
             linkDialog.show(getSupportFragmentManager(), "LinkDialogFragment");
-        };
+        }
 
-        public void onDialogPositiveClick(DialogFragment linkDialog) {
+    public void onDialogPositiveClick(DialogFragment linkDialog) {
             Dialog addLinkDialog = linkDialog.getDialog();
+
             String linkName = ((EditText) addLinkDialog.findViewById(R.id.link_name)).getText().toString();
             String linkURL = ((EditText) addLinkDialog.findViewById(R.id.link_url)).getText().toString();
 
-            if (linkURL != "" | linkURL != null) {
+            if (isValidLink(linkURL)) {
                 linkDialog.dismiss();
                 linkList.add(0, new LinkItemCard(linkName, linkURL));
                 linkRviewAdapter.notifyItemInserted(0);
@@ -97,19 +99,13 @@ public class LinkCollectorActivity extends AppCompatActivity implements LinkColl
         @Override
         public void onDialogNegativeClick(DialogFragment linkDialog) {
             linkDialog.dismiss();
-            //linkDialog.this.getDialog().cancel();
         }
-
-
 
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         int size = linkList == null ? 0 : linkList.size();
         outState.putInt(NUMBER_OF_LINKS, size);
-
-        // Need to generate unique key for each item
-        // This is only a possible way to do, please find your own way to generate the key
         for (int i = 0; i < size; i++) {
             outState.putString(KEY_OF_LINK + i + "0", linkList.get(i).getLinkName());
             outState.putString(KEY_OF_LINK + i + "1", linkList.get(i).getLinkURL());
@@ -123,7 +119,6 @@ public class LinkCollectorActivity extends AppCompatActivity implements LinkColl
     }
 
     private void initialItemData(Bundle savedInstanceState) {
-        // Not the first time to open this Activity
         if (savedInstanceState != null && savedInstanceState.containsKey(NUMBER_OF_LINKS)) {
             if (linkList == null || linkList.size() == 0) {
 
@@ -157,6 +152,16 @@ public class LinkCollectorActivity extends AppCompatActivity implements LinkColl
         linkRecyclerView.setLayoutManager(linkRLayoutManger);
     }
 
+    public static boolean isValidLink(String url)
+    {
+        try {
+            new URL(url).toURI();
+            return true;
+        }
+        catch (Exception e) {
+            return false;
+        }
+    }
 
 }
 

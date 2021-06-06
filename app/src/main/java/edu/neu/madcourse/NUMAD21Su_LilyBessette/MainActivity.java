@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.linkcollectorbutton:
                 Intent intent_linkcollect = new Intent(MainActivity.this, LinkCollectorActivity.class);
                 startActivity(intent_linkcollect);
+                break;
         }
 
     }
