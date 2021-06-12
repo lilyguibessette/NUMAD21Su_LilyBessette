@@ -1,0 +1,8 @@
+﻿ISBN: 9781118183489
+Title: Professional Android Sensor Programming
+
+File                                 Description
+=============================================================
+README.txt                           Read Me
+AndroidSensorProgrammingSource.zip   Source code for the companion app that was used in the book examples.
+GastAppActivity_play.apk             Android package from built from the contents of AndroidSensorProgrammingSource.zip that can be installed on a device. The companion app is also available from Google Play: https://play.google.com/store/apps/details?id=root.gast.playground.

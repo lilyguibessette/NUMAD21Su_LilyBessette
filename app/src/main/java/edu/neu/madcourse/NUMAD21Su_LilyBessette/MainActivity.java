@@ -43,6 +43,10 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent_linkcollect = new Intent(MainActivity.this, LinkCollectorActivity.class);
                 startActivity(intent_linkcollect);
                 break;
+            case R.id.locatorbutton:
+                Intent intent_locator = new Intent(MainActivity.this, LocatorActivity.class);
+                startActivity(intent_locator);
+                break;
         }
 
     }

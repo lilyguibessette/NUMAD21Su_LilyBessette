@@ -4,6 +4,7 @@
     <string name="clicky">Clicky</string>
     <string name="ClickyClicky">Clicky Clicky</string>
     <string name="link_collector">Link Collector</string>
+    <string name="locator">Locator</string>
     <string name="about">About</string>
     <string name="email">bessette.l@northeastern.edu</string>
     <string name="name">Lily Bessette</string>
@@ -14,4 +15,10 @@
     <string name="add_link">Add Link</string>
     <string name="link_name">Link Name</string>
     <string name="link_url">Link URL</string>
+    <string name="longitude">Longitude</string>
+    <string name="latitude">Latitude</string>
+    <string name="lat_none">Unavailable</string>
+    <string name="long_none">Unavailable</string>
+    <string name="location_access_required">Location access required.</string>
+    <string name="confirm">Confirm</string>
 </resources>
