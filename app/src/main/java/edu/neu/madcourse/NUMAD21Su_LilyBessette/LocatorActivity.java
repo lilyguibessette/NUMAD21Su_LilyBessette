@@ -2,12 +2,16 @@ package edu.neu.madcourse.NUMAD21Su_LilyBessette;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Looper;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,26 +23,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import java.text.DecimalFormat;
-import static android.location.LocationManager.*;
 
-public class LocatorActivity extends AppCompatActivity  {
+
+public class LocatorActivity extends AppCompatActivity {
     private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 34;
     private static final String TAG = LocatorActivity.class.getSimpleName();
 
-    private Location gps_location;
-    private FusedLocationProviderClient fusedLocationClient;
     Button back;
     TextView longitude;
     TextView latitude;
-    LocationManager locationManager;
     double gps_longitude;
     double gps_latitude;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,46 +55,29 @@ public class LocatorActivity extends AppCompatActivity  {
             Intent intent = new Intent(LocatorActivity.this, MainActivity.class);
             startActivity(intent);
         });
-
-        if (!checkPermissions()) {
-            requestPermissions();
-        }
-
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        boolean gpsEnabled = locationManager.isProviderEnabled(GPS_PROVIDER);
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-
-        if (gpsEnabled & checkPermissions()) {
-            getLocation();
-        } else {
-            Toast.makeText(LocatorActivity.this, "GPS disabled.", Toast.LENGTH_SHORT).show();
-        }
+        updateLocationData();
     }
 
-    @SuppressLint("MissingPermission")
-    private void getLocation() {
-        fusedLocationClient.getLastLocation()
-                .addOnCompleteListener(this, new OnCompleteListener<Location>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Location> task) {
-                        if (task.isSuccessful() && task.getResult() != null) {
-                            gps_location = task.getResult();
 
-                            gps_latitude = gps_location.getLatitude();
-                            gps_longitude =  gps_location.getLongitude();
-                            latitude.setText(  new DecimalFormat("#.0#").format(gps_latitude));
-                            longitude.setText( new DecimalFormat("#.0#").format(gps_longitude));
-                        } else {
-                            Log.w(TAG, "getLocation:exception", task.getException());
-                            Toast.makeText(LocatorActivity.this, "Location unavailable.", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+    protected void updateLocationData() {
+        if (checkPermissions()) {
+            getLocation();
+        } else {
+            Log.i(TAG, "Requesting permission");
+            requestPermissions();
+        }
     }
 
     private boolean checkPermissions() {
-        return  PackageManager.PERMISSION_GRANTED == ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION);
+        if (PackageManager.PERMISSION_GRANTED == ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)) {
+            return true;
+        } else if (PackageManager.PERMISSION_GRANTED == ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_COARSE_LOCATION)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private void requestPermissions() {
@@ -101,25 +87,101 @@ public class LocatorActivity extends AppCompatActivity  {
         if (shouldProvideRationale) {
             Log.i(TAG, "Displaying permission rationale to provide additional context.");
             Snackbar.make(
-                    findViewById(R.id.activity_locator_request),
+                    findViewById(R.id.activity_locator),
                     R.string.permission_rationale,
                     Snackbar.LENGTH_INDEFINITE)
-                    .setAction(R.string.confirm, new View.OnClickListener() {
+                    .setAction(R.string.ok, new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             ActivityCompat.requestPermissions(LocatorActivity.this,
-                                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                                            Manifest.permission.ACCESS_COARSE_LOCATION},
                                     REQUEST_PERMISSIONS_REQUEST_CODE);
                         }
                     })
                     .show();
         } else {
-            Log.i(TAG, "Requesting permission");
-            ActivityCompat.requestPermissions(LocatorActivity.this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                    REQUEST_PERMISSIONS_REQUEST_CODE);
+            Snackbar.make(
+                    findViewById(R.id.activity_locator),
+                    R.string.location_already_denied,
+                    Snackbar.LENGTH_INDEFINITE)
+                    .setAction(R.string.ok, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            // Dismiss
+                        }
+                    })
+                    .show();
         }
     }
 
-}
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                           int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_PERMISSIONS_REQUEST_CODE) {
+            if (grantResults.length > 0 &&
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                getLocation();
+            } else {
+                Toast.makeText(LocatorActivity.this, "Location permission denied.", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 
+    private void setLocationText(Location location) {
+        gps_latitude = location.getLatitude();
+        gps_longitude = location.getLongitude();
+        latitude.setText(new DecimalFormat("#.0#").format(gps_latitude));
+        longitude.setText(new DecimalFormat("#.0#").format(gps_longitude));
+    }
+
+    @SuppressLint("MissingPermission")
+    private void getLocation() {
+        FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
+                locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+            fusedLocationClient.getLastLocation().addOnCompleteListener(new OnCompleteListener() {
+                @SuppressLint("MissingPermission")
+                @Override
+                public void onComplete(@NonNull Task task) {
+                    if (task.isSuccessful() && task.getResult() != null) {
+                        Location location = (Location) task.getResult();
+                        if (location != null) {
+                            setLocationText(location);
+                        } else {
+                            LocationRequest locationRequest = new LocationRequest()
+                                    .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                                    .setInterval(100)
+                                    .setFastestInterval(10)
+                                    .setNumUpdates(1);
+                            LocationCallback locationCallback = new LocationCallback() {
+                                @Override
+                                public void onLocationResult(LocationResult locationResult) {
+                                    Location location = locationResult.getLastLocation();
+                                    setLocationText(location);
+                                }
+                            };
+                        }
+                    } else {
+                        Log.w(TAG, "getLocation:exception", task.getException());
+                        Toast.makeText(LocatorActivity.this, "Location unavailable.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        } else {
+            Snackbar.make(
+                    findViewById(R.id.activity_locator),
+                    R.string.location_tracking_off,
+                    Snackbar.LENGTH_INDEFINITE)
+                    .setAction(R.string.ok, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            // Dismiss
+                        }
+                    })
+                    .show();
+        }
+    }
+}
