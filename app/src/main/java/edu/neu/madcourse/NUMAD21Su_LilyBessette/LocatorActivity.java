@@ -161,6 +161,7 @@ public class LocatorActivity extends AppCompatActivity {
                                 public void onLocationResult(LocationResult locationResult) {
                                     Location location = locationResult.getLastLocation();
                                     setLocationText(location);
+
                                 }
                             };
                         }
@@ -174,7 +175,7 @@ public class LocatorActivity extends AppCompatActivity {
             Snackbar.make(
                     findViewById(R.id.activity_locator),
                     R.string.location_tracking_off,
-                    Snackbar.LENGTH_INDEFINITE)
+                    Snackbar.LENGTH_LONG)
                     .setAction(R.string.ok, new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {

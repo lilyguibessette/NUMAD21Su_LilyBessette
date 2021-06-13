@@ -23,6 +23,6 @@
     <string name="confirm">Confirm</string>
     <string name="permission_rationale">Location permission required to view latitude and longitude.</string>
     <string name="ok">Ok</string>
-    <string name="location_tracking_off">Location provider disabled. Please enable location tracking in settings.</string>
+    <string name="location_tracking_off">Location provider disabled. Please enable location tracking in settings and restart the application.</string>
     <string name="location_already_denied">Location permission already denied. Enable in settings.</string>
 </resources>
