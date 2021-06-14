@@ -97,11 +97,12 @@ public class LocatorActivity extends AppCompatActivity implements LocationListen
                     grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 getLocation();
             } else {
-                Toast.makeText(LocatorActivity.this, "Location permission denied already. Update in settings.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LocatorActivity.this, "Location permission denied. Update in settings.", Toast.LENGTH_SHORT).show();
             }
         }
     }
 
+    
     private void setLocationText(Location location) {
         gps_latitude = location.getLatitude();
         gps_longitude = location.getLongitude();
