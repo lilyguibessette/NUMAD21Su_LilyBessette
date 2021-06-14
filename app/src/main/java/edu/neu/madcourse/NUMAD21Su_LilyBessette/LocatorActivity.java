@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Looper;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.AppLaunchChecker;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -32,8 +34,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import java.text.DecimalFormat;
 
+import static androidx.core.app.AppLaunchChecker.onActivityCreate;
 
-public class LocatorActivity extends AppCompatActivity {
+
+public class LocatorActivity extends AppCompatActivity implements LocationListener {
     private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 34;
     private static final String TAG = LocatorActivity.class.getSimpleName();
 
@@ -42,6 +46,7 @@ public class LocatorActivity extends AppCompatActivity {
     TextView latitude;
     double gps_longitude;
     double gps_latitude;
+    boolean firstRun;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,65 +60,33 @@ public class LocatorActivity extends AppCompatActivity {
             Intent intent = new Intent(LocatorActivity.this, MainActivity.class);
             startActivity(intent);
         });
+
         updateLocationData();
     }
 
 
     protected void updateLocationData() {
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_PERMISSIONS_REQUEST_CODE);
         if (checkPermissions()) {
             getLocation();
         } else {
             Log.i(TAG, "Requesting permission");
-            requestPermissions();
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_PERMISSIONS_REQUEST_CODE);
         }
     }
 
     private boolean checkPermissions() {
-        if (PackageManager.PERMISSION_GRANTED == ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION)) {
+        if (ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             return true;
-        } else if (PackageManager.PERMISSION_GRANTED == ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_COARSE_LOCATION)) {
+        } else if (ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             return true;
         } else {
             return false;
         }
     }
 
-    private void requestPermissions() {
-        boolean shouldProvideRationale =
-                ActivityCompat.shouldShowRequestPermissionRationale(this,
-                        Manifest.permission.ACCESS_FINE_LOCATION);
-        if (shouldProvideRationale) {
-            Log.i(TAG, "Displaying permission rationale to provide additional context.");
-            Snackbar.make(
-                    findViewById(R.id.activity_locator),
-                    R.string.permission_rationale,
-                    Snackbar.LENGTH_INDEFINITE)
-                    .setAction(R.string.ok, new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            ActivityCompat.requestPermissions(LocatorActivity.this,
-                                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
-                                            Manifest.permission.ACCESS_COARSE_LOCATION},
-                                    REQUEST_PERMISSIONS_REQUEST_CODE);
-                        }
-                    })
-                    .show();
-        } else {
-            Snackbar.make(
-                    findViewById(R.id.activity_locator),
-                    R.string.location_already_denied,
-                    Snackbar.LENGTH_INDEFINITE)
-                    .setAction(R.string.ok, new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            // Dismiss
-                        }
-                    })
-                    .show();
-        }
-    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions,
@@ -124,7 +97,7 @@ public class LocatorActivity extends AppCompatActivity {
                     grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 getLocation();
             } else {
-                Toast.makeText(LocatorActivity.this, "Location permission denied.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LocatorActivity.this, "Location permission denied already. Update in settings.", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -149,7 +122,8 @@ public class LocatorActivity extends AppCompatActivity {
                     if (task.isSuccessful() && task.getResult() != null) {
                         Location location = (Location) task.getResult();
                         if (location != null) {
-                            setLocationText(location);
+                            setLocationText
+                                    (location);
                         } else {
                             LocationRequest locationRequest = new LocationRequest()
                                     .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
@@ -161,7 +135,6 @@ public class LocatorActivity extends AppCompatActivity {
                                 public void onLocationResult(LocationResult locationResult) {
                                     Location location = locationResult.getLastLocation();
                                     setLocationText(location);
-
                                 }
                             };
                         }
@@ -185,4 +158,16 @@ public class LocatorActivity extends AppCompatActivity {
                     .show();
         }
     }
+
+    @Override
+    public void onLocationChanged(@NonNull Location location) {
+        setLocationText(location);
+    }
+
+    @Override
+    public void onProviderDisabled(@NonNull String provider) {
+        Toast.makeText(LocatorActivity.this, "Location provider disabled. Please enable in settings", Toast.LENGTH_SHORT).show();
+    }
+
+
 }
