@@ -31,7 +31,7 @@
     <string name="enter_medication_name">Medication Name:  </string>
     <string name="enter_drug_form">Dosage Form:  </string>
     <string name="enter_brand_generic">Generic/Brand Name:  </string>
-    <string name="search_rx">Confirm Search Criteria</string>
+    <string name="search_rx">Confirm Search</string>
     <string name="service">At Your Service</string>
     <string name="enter_product_ndc">Product NDC:  </string>
     <string name="enter_active_ingredients">Active Ingredients:  </string>
@@ -42,4 +42,26 @@
     <string name="search_openfda">Search for Medications in openFDA</string>
     <string name="execute_search">Search openFDA</string>
     <string name="search_error">No results to display. Please retry.</string>
+
+
+    <string-array name="brandgenericspinner">
+        <item>GENERIC NAME</item>
+        <item>BRAND NAME</item>
+    </string-array>
+
+
+    <string-array name="drugformspinner">
+        <item>AEROSOL</item>
+        <item>CAPSULE</item>
+        <item>CHEWABLE</item>
+        <item>CREAM</item>
+        <item>INHALANT</item>
+        <item>INJECTION</item>
+        <item>OINTMENT</item>
+        <item>LIQUID</item>
+        <item>LOTION</item>
+        <item>POWDER</item>
+        <item>TABLET</item>
+    </string-array>
+
 </resources>

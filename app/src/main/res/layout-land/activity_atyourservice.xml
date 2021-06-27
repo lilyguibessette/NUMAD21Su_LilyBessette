@@ -5,53 +5,56 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:layout_marginVertical="4dp"
-        android:layout_marginBottom="4dp"
-        android:layout_marginLeft="4dp"
         android:id="@+id/atyourservice_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginVertical="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="32dp"
         android:text="@string/search_openfda"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/resulttable"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.548"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.245" />
 
     <TableLayout
-        android:layout_marginVertical="4dp"
-        android:layout_marginBottom="4dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginLeft="8dp"
         android:id="@+id/search_table"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/resulttable"
+        android:layout_marginVertical="4dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.038"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/atyourservice_title">
+        app:layout_constraintTop_toBottomOf="@+id/atyourservice_title"
+        app:layout_constraintVertical_bias="0.172">
 
         <TableRow
-            android:layout_marginVertical="4dp"
-            android:layout_marginRight="4dp"
-            android:layout_marginLeft="4dp"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="fill_parent"
+            android:layout_marginVertical="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp">
 
             <TextView
-                android:layout_marginRight="4dp"
-                android:layout_marginLeft="4dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
                 android:layout_weight="1"
                 android:text='@string/enter_medication_name' />
 
             <EditText
-                android:layout_marginRight="4dp"
-                android:layout_marginLeft="4dp"
                 android:id="@+id/drug_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
                 android:layout_weight="1"
                 android:autofillHints="@string/drug_name"
                 android:hint="@string/drug_name"
@@ -59,25 +62,25 @@
         </TableRow>
 
         <TableRow
-            android:layout_marginRight="4dp"
-            android:layout_marginLeft="4dp"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp">
 
             <TextView
-                android:layout_marginRight="4dp"
-                android:layout_marginLeft="4dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
                 android:layout_weight="1"
                 android:text="@string/enter_drug_form" />
 
             <Spinner
-                android:layout_marginRight="4dp"
-                android:layout_marginLeft="4dp"
                 android:id="@+id/spinnerdrugform"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
                 android:layout_weight="1"
                 android:entries="@array/drugformspinner"
                 android:fadeScrollbars="false"
@@ -86,25 +89,25 @@
         </TableRow>
 
         <TableRow
-            android:layout_marginRight="4dp"
-            android:layout_marginLeft="4dp"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp">
 
             <TextView
-                android:layout_marginRight="4dp"
-                android:layout_marginLeft="4dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
                 android:layout_weight="1"
                 android:text='@string/enter_brand_generic' />
 
             <Spinner
-                android:layout_marginRight="4dp"
-                android:layout_marginLeft="4dp"
                 android:id="@+id/spinnerbrandgeneric"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
                 android:layout_weight="1"
                 android:entries="@array/brandgenericspinner"
                 android:fadeScrollbars="false"
@@ -114,18 +117,18 @@
 
 
         <TableRow
-            android:layout_marginBottom="4dp"
-            android:layout_marginRight="4dp"
-            android:layout_marginLeft="4dp"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginBottom="4dp">
 
             <Button
-                android:layout_marginRight="4dp"
-                android:layout_marginLeft="4dp"
                 android:id="@+id/search_openfda_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
                 android:layout_weight="1"
                 android:text="@string/execute_search" />
         </TableRow>
@@ -133,172 +136,173 @@
     </TableLayout>
 
     <TableLayout
-        android:layout_marginVertical="4dp"
-        android:layout_marginBottom="4dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginLeft="8dp"
         android:id="@+id/resulttable"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginVertical="4dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.744"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.924">
+        app:layout_constraintVertical_bias="0.368">
 
         <TableRow
-            android:layout_marginVertical="4dp"
-            android:layout_marginRight="4dp"
-            android:layout_marginLeft="4dp"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="fill_parent"
+            android:layout_marginVertical="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp">
 
             <TextView
-                android:layout_marginRight="4dp"
-                android:layout_marginLeft="4dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
                 android:layout_weight="1"
                 android:text='@string/enter_product_ndc' />
 
             <TextView
-                android:layout_marginRight="4dp"
-                android:layout_marginLeft="4dp"
                 android:id="@+id/product_ndc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
                 android:layout_weight="1" />
         </TableRow>
 
         <TableRow
-            android:layout_marginRight="4dp"
-            android:layout_marginLeft="4dp"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp">
 
             <TextView
-                android:layout_marginRight="4dp"
-                android:layout_marginLeft="4dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
                 android:layout_weight="1"
                 android:text='@string/enter_product_type' />
 
             <TextView
-                android:layout_marginRight="4dp"
-                android:layout_marginLeft="4dp"
                 android:id="@+id/product_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
                 android:layout_weight="1" />
         </TableRow>
 
         <TableRow
-            android:layout_marginRight="4dp"
-            android:layout_marginLeft="4dp"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp">
 
             <TextView
-                android:layout_marginRight="4dp"
-                android:layout_marginLeft="4dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
                 android:layout_weight="1"
                 android:text='@string/enter_routes' />
 
             <TextView
-                android:layout_marginRight="4dp"
-                android:layout_marginLeft="4dp"
                 android:id="@+id/routes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
                 android:layout_weight="1" />
         </TableRow>
 
         <TableRow
-            android:layout_marginRight="4dp"
-            android:layout_marginLeft="4dp"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp">
 
             <TextView
-                android:layout_marginRight="4dp"
-                android:layout_marginLeft="4dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
                 android:layout_weight="1"
                 android:text='@string/enter_manufacturer_name' />
 
             <TextView
-                android:layout_marginRight="4dp"
-                android:layout_marginLeft="4dp"
                 android:id="@+id/manufacturer_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
                 android:layout_weight="1" />
         </TableRow>
 
         <TableRow
-            android:layout_marginRight="4dp"
-            android:layout_marginLeft="4dp"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp">
 
             <TextView
-                android:layout_marginRight="4dp"
-                android:layout_marginLeft="4dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
                 android:layout_weight="1"
                 android:text='@string/enter_pharm_class_epc' />
 
             <TextView
-                android:layout_marginRight="4dp"
-                android:layout_marginLeft="4dp"
                 android:id="@+id/pharm_class_epc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
                 android:layout_weight="1" />
         </TableRow>
 
         <TableRow
-            android:layout_marginRight="4dp"
-            android:layout_marginLeft="4dp"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp">
 
             <TextView
-                android:layout_marginRight="4dp"
-                android:layout_marginLeft="4dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
                 android:layout_weight="1"
                 android:text='@string/enter_active_ingredients' />
 
             <TextView
-                android:layout_marginRight="4dp"
-                android:layout_marginLeft="4dp"
                 android:id="@+id/active_ingredients"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
                 android:layout_weight="1" />
 
         </TableRow>
 
 
         <TableRow
-            android:layout_marginBottom="4dp"
-            android:layout_marginRight="4dp"
-            android:layout_marginLeft="4dp"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginBottom="4dp">
 
             <Button
-                android:layout_marginBottom="4dp"
                 android:id="@+id/backbutton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
                 android:layout_weight="1"
                 android:text="@string/Back" />
         </TableRow>
@@ -309,12 +313,14 @@
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="3dp"
+        android:layout_height="1dp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/resulttable"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_table" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/resulttable"
+        app:layout_constraintHorizontal_bias="0.569"
+        app:layout_constraintStart_toEndOf="@+id/search_table"
+        app:layout_constraintTop_toBottomOf="@+id/atyourservice_title"
+        app:layout_constraintVertical_bias="0.568" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

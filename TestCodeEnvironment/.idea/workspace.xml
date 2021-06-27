@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="53075b3f-9f3e-4694-82fd-5830dc99f872" name="Default Changelist" comment="" />
+    <list default="true" id="53075b3f-9f3e-4694-82fd-5830dc99f872" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../app/release/app-release.apk" beforeDir="false" afterPath="$PROJECT_DIR$/../app/release/app-release.apk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/edu/neu/madcourse/NUMAD21Su_LilyBessette/AtYourServiceActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/edu/neu/madcourse/NUMAD21Su_LilyBessette/AtYourServiceActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/activity_atyourservice.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/activity_atyourservice.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/fragment_atyourservice_dialog.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/fragment_atyourservice_dialog.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/values/brand_generic_array.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/values/drug_form_array.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/values/strings.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -33,9 +42,11 @@
     <option name="showMembers" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="jdk.selected.JAVA_MODULE" value="1.8" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
@@ -63,7 +74,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1624750166766</updated>
-      <workItem from="1624750170647" duration="1336000" />
+      <workItem from="1624750170647" duration="2314000" />
     </task>
     <servers />
   </component>
@@ -75,9 +86,17 @@
       <screen x="0" y="23" width="1440" height="827" />
     </state>
     <state x="448" y="103" key="#Project_Structure/0.23.1440.827/1440.-898.2560.1417@0.23.1440.827" timestamp="1624750186128" />
+    <state x="518" y="244" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1624818506363">
+      <screen x="0" y="23" width="1440" height="826" />
+    </state>
+    <state x="518" y="244" key="#com.intellij.fileTypes.FileTypeChooser/0.23.1440.826@0.23.1440.826" timestamp="1624818506363" />
     <state x="397" y="276" key="com.intellij.ide.util.TipDialog" timestamp="1624750171479">
       <screen x="0" y="23" width="1440" height="827" />
     </state>
     <state x="397" y="276" key="com.intellij.ide.util.TipDialog/0.23.1440.827/1440.-898.2560.1417@0.23.1440.827" timestamp="1624750171479" />
+    <state x="163" y="57" key="new project wizard" timestamp="1624818350020">
+      <screen x="0" y="23" width="1440" height="826" />
+    </state>
+    <state x="163" y="57" key="new project wizard/0.23.1440.826@0.23.1440.826" timestamp="1624818350020" />
   </component>
 </project>
