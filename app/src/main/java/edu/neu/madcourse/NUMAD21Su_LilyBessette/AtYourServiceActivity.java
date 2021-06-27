@@ -36,7 +36,6 @@ import java.util.Scanner;
 public class AtYourServiceActivity extends AppCompatActivity {
     Button back;
     Button search_openfda;
-    FloatingActionButton searchDrugButton;
     private static String[] queryResult;
     private String drugName;
     private String dosageForm;
@@ -75,6 +74,7 @@ public class AtYourServiceActivity extends AppCompatActivity {
         spinnerBrandGeneric = findViewById(R.id.spinnerbrandgeneric);
         drugName = ((EditText) findViewById(R.id.drug_name)).getText().toString();
         progressCircle =(ProgressBar)findViewById(R.id.progressBar); // initiate the progress bar
+        init(savedInstanceState);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,7 +118,40 @@ public class AtYourServiceActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("drugName",drugName);
+        outState.putString("dosageForm",dosageForm);
+        outState.putString("searchBrandGeneric",searchBrandGeneric);
+        outState.putString("product_ndc",product_ndc);
+        outState.putString("product_type",product_type);
+        outState.putString("routes",routes);
+        outState.putString("manufacturer_name",manufacturer_name);
+        outState.putString("pharm_class_epc",pharm_class_epc);
+        outState.putString("active_ingredients",active_ingredients);
+    }
 
+
+    private void init(Bundle savedInstanceState) {
+        if (savedInstanceState != null){
+            drugName = savedInstanceState.getString("drugName");
+            dosageForm = savedInstanceState.getString("dosageForm");
+            searchBrandGeneric = savedInstanceState.getString("searchBrandGeneric");
+            product_ndc = savedInstanceState.getString("product_ndc");
+            product_type = savedInstanceState.getString("product_type");
+            routes = savedInstanceState.getString("routes");
+            manufacturer_name = savedInstanceState.getString("manufacturer_name");
+            pharm_class_epc = savedInstanceState.getString("pharm_class_epc");
+            active_ingredients = savedInstanceState.getString("active_ingredients");
+        }
+        if(product_ndc!= null){ product_ndc_tv.setText(product_ndc);}
+        if(product_type!= null){ product_type_tv.setText(product_type);}
+        if(routes!= null){ routes_tv.setText(routes);}
+        if(manufacturer_name!= null){ manufacturer_name_tv.setText(manufacturer_name);}
+        if(pharm_class_epc!= null){ pharm_class_epc_tv.setText(pharm_class_epc);}
+        if(active_ingredients!= null){ active_ingredients_tv.setText(active_ingredients);}
+    }
 
     public static boolean isValidAPICall() {
         String error = queryResult[0];
